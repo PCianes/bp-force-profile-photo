@@ -71,8 +71,10 @@ class BD_Force_User_Avatar_Helper {
 			return;
 		}
 		
-		bp_core_add_message( __( 'Please upload your profile photo to start using this site.', 'bp-force-profile-photo' ), 'error' );
+		bp_core_add_message( __( 'Por favor sube una foto de perfil, la cual tendrá que ser aprobada manualmente para mantener la cuenta activa', 'bp-force-profile-photo' ), 'error' );
 		//if we are here, user has not uploaded an avatar, let us redirect them to upload avatar page
+		// Integration with plugin "BP Registration Options" to put the user under moderation when delete the profile photo
+		update_user_meta( $user_id, '_bprwg_is_moderated', 'true');
 		bp_core_redirect( bp_loggedin_user_domain() . buddypress()->profile->slug . '/change-avatar/' );
 		
 		
